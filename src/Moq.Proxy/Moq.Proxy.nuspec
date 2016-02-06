@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>$id$</id>
+		<title>$id$</title>
+		<version>$version$</version>
+        <authors>Daniel Cazzulino, kzu</authors>
+        <owners>kzu</owners>
+		<projectUrl>https://github.com/moq/moq.proxy</projectUrl>
+		<licenseUrl>https://raw.github.com/moq/moq.proxy/master/LICENSE</licenseUrl>
+		<iconUrl>https://raw.github.com/moq/moq.proxy/master/icon/48.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<summary>Moq Proxy Abstractions</summary>
+		<description>Moq Proxy Abstractions</description>
+		<copyright>2016 © Daniel Cazzulino</copyright>
+	</metadata>
+	<files>
+		<file src="bin\$configuration$\$id$.dll" target="lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10" />
+		<file src="bin\$configuration$\$id$.pdb" target="lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10" />
+		<file src="bin\$configuration$\$id$.xml" target="lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10" />
+	</files>
+</package>

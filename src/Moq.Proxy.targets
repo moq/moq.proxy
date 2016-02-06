@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition=" '$(Language)' == 'C#' ">
+		<ThisAssemblyNameFile>$(IntermediateOutputPath)ThisAssembly.AssemblyName.g$(DefaultLanguageSourceExtension)</ThisAssemblyNameFile>
+
+		<CoreCompileDependsOn>
+			GenerateThisAssemblyName;
+			$(CoreCompileDependsOn)
+		</CoreCompileDependsOn>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(Language)' == 'C#' ">
+		<Compile Include="$(ThisAssemblyNameFile)" />
+	</ItemGroup>
+	
+	<Target Name="GenerateThisAssemblyName" Inputs="$(MSBuildProjectFullPath)" Outputs="$(ThisAssemblyNameFile)">
+		<MakeDir Directories="$(IntermediateOutputPath)" Condition=" !Exists('$(IntermediateOutputPath)') " />
+		<WriteLinesToFile Lines='partial class ThisAssembly
+{
+      /// &lt;summary&gt;AssemblyName: $(AssemblyName)&lt;/summary&gt;
+      public const string AssemblyName = "$(AssemblyName)"%3B
+}
+' Overwrite='true' File='$(ThisAssemblyNameFile)' />
+
+		<ItemGroup>
+			<FileWrites Include="$(ThisAssemblyNameFile)" />
+		</ItemGroup>
+	</Target>
+
+</Project>

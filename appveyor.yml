@@ -1,0 +1,33 @@
+os: Visual Studio 2015
+
+init:
+  - git config --global core.autocrlf input
+
+build_script:
+  - cmd: >-
+      build.cmd /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+      
+      .nuget\packages\coveralls.io\tools\coveralls.net.exe --opencover out\coverage.xml
+
+# we run the tests ourselves in build.cmd for coverage
+test: off
+
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: f6xZaDIQUUkpc66qUJDVhqRg1Wok1TMOj2UciZxFMjYB5Nopw+Qb+Rde71Zw1ppc
+
+deploy:
+  - provider: NuGet
+    api_key:
+      secure: 7MS5+XWaFchMXFqzgneQCqo9U0DlxiPXe/KWWUnbCBDEizVn06EjdQZkWu1gbNOJ
+    artifact: Package
+    on:
+      branch: master
+
+nuget:
+  project_feed: true
+  disable_publish_on_pr: true
+  
+artifacts:
+  - path: out\*.nupkg
+    name: Package
