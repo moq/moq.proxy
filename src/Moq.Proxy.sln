@@ -9,14 +9,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\build.proj = ..\build.proj
 		..\GitInfo.txt = ..\GitInfo.txt
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
-		Moq.Proxy.props = Moq.Proxy.props
-		Moq.Proxy.targets = Moq.Proxy.targets
+		Moq.Proxy.Shared.props = Moq.Proxy.Shared.props
+		Moq.Proxy.Shared.targets = Moq.Proxy.Shared.targets
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy", "Moq.Proxy\Moq.Proxy.csproj", "{8305A89C-4303-4C06-842B-5BFCDEBFFF25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.Castle", "Moq.Proxy.Castle\Moq.Proxy.Castle.csproj", "{A4389281-E3DB-4E94-A9AF-D9240A824928}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.Tests", "Moq.Proxy.Tests\Moq.Proxy.Tests.csproj", "{80B0EBD7-F407-4EB6-9E50-3C188F774C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.LinFu", "Moq.Proxy.LinFu\Moq.Proxy.LinFu.csproj", "{B16E21DF-158F-47A6-8BAB-64CD0BD95E12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{A4389281-E3DB-4E94-A9AF-D9240A824928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4389281-E3DB-4E94-A9AF-D9240A824928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4389281-E3DB-4E94-A9AF-D9240A824928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B0EBD7-F407-4EB6-9E50-3C188F774C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B0EBD7-F407-4EB6-9E50-3C188F774C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B0EBD7-F407-4EB6-9E50-3C188F774C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B0EBD7-F407-4EB6-9E50-3C188F774C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16E21DF-158F-47A6-8BAB-64CD0BD95E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16E21DF-158F-47A6-8BAB-64CD0BD95E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16E21DF-158F-47A6-8BAB-64CD0BD95E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16E21DF-158F-47A6-8BAB-64CD0BD95E12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
