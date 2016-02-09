@@ -14,11 +14,16 @@ namespace Moq.Proxy.LinFu
 
 		public object CreateProxy (IInterceptor interceptor, Type baseType, Type[] implementedInterfaces, object[] constructorArguments)
 		{
-			if (baseType.IsInterface)
-				// TODO: Moq should guarantee that only class baseType is specified 
-				// at all times. For interface only mocks, Moq.Proxy will provide a 
-				// base type so that ToString can be always overriden.
-				throw new NotSupportedException ();
+			if (baseType.IsInterface) {
+				// TODO: should Moq.Core do this work? It's the same for 
+				// Castle and LinFu and presumably other (future?) libraries
+
+				var fixedInterfaces = new Type[implementedInterfaces.Length + 1];
+				fixedInterfaces[0] = baseType;
+				implementedInterfaces.CopyTo (fixedInterfaces, 1);
+				implementedInterfaces = fixedInterfaces;
+				baseType = typeof (object);
+			}
 
 			// TODO: the proxy factory should automatically detect requests to proxy 
 			// delegates and generate an interface on the fly for them, without Moq 

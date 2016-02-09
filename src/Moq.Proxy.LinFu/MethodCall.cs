@@ -27,5 +27,7 @@ namespace Moq.Proxy.LinFu
 		{
 			invocation.SetArgument (index, value);
 		}
+
+		public override string ToString () => invocation.Target?.GetType().Name + "." + Method.Name;
 	}
 }

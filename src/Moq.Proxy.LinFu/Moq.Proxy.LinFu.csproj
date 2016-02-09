@@ -30,6 +30,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Moq.Proxy.LinFu.targets" />
     <None Include="Moq.Proxy.LinFu.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

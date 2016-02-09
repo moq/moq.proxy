@@ -15,7 +15,7 @@ namespace Moq.Proxy.LinFu
 		public object Intercept (DynamicProxy.InvocationInfo info)
 		{
 			var call = new MethodCall (info);
-
+			
 			interceptor.Intercept (call);
 
 			return call.ReturnValue;

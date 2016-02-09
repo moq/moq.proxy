@@ -31,5 +31,7 @@ namespace Moq.Proxy.Castle
 		{
 			invocation.SetArgumentValue (index, value);
 		}
+
+		public override string ToString () => invocation.InvocationTarget?.GetType ().Name + "." + Method.Name;
 	}
 }

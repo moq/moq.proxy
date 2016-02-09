@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition=" '$(Language)' == 'C#' ">
+		<ProxyFactoryFile>$(IntermediateOutputPath)ProxyFactory.g$(DefaultLanguageSourceExtension)</ProxyFactoryFile>
+		<CoreCompileDependsOn>
+			GenerateProxyFactoryFile;
+			IncludeProxyFactoryFile;
+			$(CoreCompileDependsOn)
+		</CoreCompileDependsOn>
+	</PropertyGroup>
+
+	<Target Name="IncludeProxyFactoryFile">
+		<ItemGroup>
+			<Compile Include="$(ProxyFactoryFile)" />
+		</ItemGroup>
+	</Target>
+	
+	<Target Name="GenerateProxyFactoryFile" Inputs="$(MSBuildProjectFullPath)" Outputs="$(ProxyFactoryFile)">
+		<MakeDir Directories="$(IntermediateOutputPath)" Condition=" !Exists('$(IntermediateOutputPath)') " />
+		<WriteLinesToFile Lines='[assembly: Moq.Proxy.ProxyFactory (typeof (Moq.Proxy.Castle.ProxyFactory))]' 
+						  Overwrite='true' 
+						  File='$(ProxyFactoryFile)' />
+		<ItemGroup>
+			<FileWrites Include="$(ProxyFactoryFile)" />
+		</ItemGroup>
+	</Target>
+</Project>

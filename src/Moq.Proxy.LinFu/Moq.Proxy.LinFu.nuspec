@@ -18,5 +18,6 @@
 		<file src="bin\$configuration$\$id$.dll" target="lib\net45" />
 		<file src="bin\$configuration$\$id$.pdb" target="lib\net45" />
 		<file src="bin\$configuration$\$id$.xml" target="lib\net45" />
+		<file src="Moq.Proxy.LinFu.targets" target="build\Moq.Proxy.LinFu.targets" />
 	</files>
 </package>
