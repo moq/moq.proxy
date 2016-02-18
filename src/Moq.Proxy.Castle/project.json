@@ -1,0 +1,13 @@
+﻿{
+    "supports": { },
+    "dependencies": {
+        "GitInfo": "1.0.56-pre",
+        "Castle.Core": "3.3.3"
+    },
+    "frameworks": {
+        "net45": { }
+    },
+    "runtimes": {
+        "win": { }
+    }
+}

@@ -13,7 +13,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,6 +39,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Moq.Proxy.Generator\Moq.Proxy.Generator.csproj">
+      <Project>{8370c610-75f0-4d0b-8e8a-ca5775de0685}</Project>
+      <Name>Moq.Proxy.Generator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Moq.Proxy\Moq.Proxy.csproj">
       <Project>{8305a89c-4303-4c06-842b-5bfcdebfff25}</Project>
       <Name>Moq.Proxy</Name>
@@ -46,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FakeMoq.targets" />
+    <None Include="project.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

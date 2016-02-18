@@ -1,0 +1,13 @@
+﻿{
+    "supports": { },
+    "dependencies": {
+        "GitInfo": "1.0.56-pre",
+        "LinFu.DynamicProxy.OfficialRelease": "1.0.5"
+    },
+    "frameworks": {
+        "net45": { }
+    },
+    "runtimes": {
+        "win": { }
+    }
+}

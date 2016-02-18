@@ -1,0 +1,9 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "GitInfo": "1.0.56-pre"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.5,Profile=Profile7": {}
+  }
+}
