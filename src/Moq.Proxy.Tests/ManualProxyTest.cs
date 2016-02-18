@@ -36,30 +36,29 @@ namespace Moq.Proxy.Tests
 
 		public int Add (int x, int y)
 		{
-			var input = new MethodInvocation(this, MethodBase.GetCurrentMethod(), x, y);
-			var returns = pipeline.Invoke(input, (i, next) => {
-				try
-				{
-					// Four possible scenarios here:
-					// - call base implementation 
-					// - call wrapped instance
-					// - generate a dummy return value (like AutoFixture)
-					// - return default value for return type.
+			var returns = pipeline.Invoke(
+				new MethodInvocation(this, MethodBase.GetCurrentMethod(), x, y),
+				(input, next) => {
+					try {
+						// Four possible scenarios here:
+						// - call base implementation 
+						// - call wrapped instance
+						// - generate a dummy return value (like AutoFixture)
+						// - return default value for return type.
 
-					var returnValue = target?.Add(x, y);
-					return input.CreateValueReturn(returnValue, x, y);
+						var returnValue = target?.Add(x, y);
+						return input.CreateValueReturn(returnValue, x, y);
+					} catch (Exception ex) {
+						return input.CreateExceptionReturn(ex);
+					}
 				}
-				catch (Exception ex)
-				{
-					return input.CreateExceptionReturn(ex);
-				}
-			});
+			);
 
 			var exception = returns.Exception;
 			if (exception != null)
 				throw exception;
 
-			return (int)returns.ReturnValue;
+			return ((int?)returns.ReturnValue).GetValueOrDefault();
 		}
 	}
 }
