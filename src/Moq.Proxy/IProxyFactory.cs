@@ -4,6 +4,6 @@ namespace Moq.Proxy
 {
 	public interface IProxyFactory
 	{
-		object CreateProxy(IInterceptor interceptor, Type baseType, Type[] implementedInterfaces, object[] construtorArguments);
+		object CreateProxy(Type baseType, Type[] implementedInterfaces, object[] construtorArguments);
 	}
 }

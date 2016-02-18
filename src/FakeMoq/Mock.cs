@@ -13,7 +13,13 @@ namespace FakeMoq
 		[EditorBrowsable (EditorBrowsableState.Never)]
 		public static T Of<T> (IProxyFactory proxyFactory)
 		{
-			return (T)proxyFactory.CreateProxy (new MockInterceptor (), typeof (T), new Type[0], new object[0]);
+			var proxy = (T)proxyFactory.CreateProxy(typeof(T), new Type[0], new object[0]);
+
+			// NOTE: this means anyone can add new behaviors to the proxy, 
+			// reaccomodate the behaviors list, etc.
+			((IProxy)proxy).Behaviors.Add (new MockBehavior ());
+
+			return proxy;
 		}
 	}
 }

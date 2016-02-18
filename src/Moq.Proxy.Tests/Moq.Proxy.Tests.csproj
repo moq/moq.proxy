@@ -61,10 +61,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManualProxyTest.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Moq.Proxy.Tests.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -88,8 +92,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\Moq.Proxy.Castle\Moq.Proxy.Castle.targets" />
-  <Import Project="..\Moq.Proxy.LinFu\Moq.Proxy.LinFu.targets" />
+  <Import Project="Moq.Proxy.Tests.targets" />
   <Import Project="..\FakeMoq\FakeMoq.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

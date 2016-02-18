@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
 using System.Security.Permissions;
 using Castle.DynamicProxy;
 using Castle.DynamicProxy.Generators;
+using System.Linq;
 
 namespace Moq.Proxy.Castle
 {
@@ -32,7 +30,7 @@ namespace Moq.Proxy.Castle
 		}
 
 		/// <inheritdoc />
-		public object CreateProxy (IInterceptor interceptor, Type baseType, Type[] implementedInterfaces, object[] constructorArguments)
+		public object CreateProxy (Type baseType, Type[] implementedInterfaces, object[] constructorArguments)
 		{
 			if (baseType.IsInterface) {
 				// TODO: should Moq.Core do this work? It's the same for 
@@ -45,11 +43,18 @@ namespace Moq.Proxy.Castle
 				baseType = typeof (object);
 			}
 
+			if (!implementedInterfaces.Contains(typeof(IProxy))) {
+				var fixedInterfaces = new Type[implementedInterfaces.Length + 1];
+				fixedInterfaces[0] = typeof(IProxy);
+				implementedInterfaces.CopyTo (fixedInterfaces, 1);
+				implementedInterfaces = fixedInterfaces;
+			}
+
 			// TODO: the proxy factory should automatically detect requests to proxy 
 			// delegates and generate an interface on the fly for them, without Moq 
 			// having to know about it at all.
 
-			return generator.CreateClassProxy (baseType, implementedInterfaces, proxyOptions, constructorArguments, new Interceptor (interceptor));
+			return generator.CreateClassProxy (baseType, implementedInterfaces, proxyOptions, constructorArguments, new Interceptor ());
 		}
 	}
 }

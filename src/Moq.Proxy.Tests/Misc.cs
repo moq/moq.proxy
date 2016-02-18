@@ -1,5 +1,7 @@
 ﻿using Xunit;
 using FakeMoq;
+using System.Reflection;
+using System.Linq;
 
 namespace Moq.Proxy.Tests
 {
@@ -11,15 +13,34 @@ namespace Moq.Proxy.Tests
 			var proxy = Mock.Of<IFoo>();
 
 			Assert.NotNull (proxy);
-
 			proxy.Do ();
-			// TODO: ToString doesn't currently work with LinFu, investigate
+			// TODO: ToString doesn't currently work with LinFu, investigate why?
 			// System.Console.WriteLine (proxy.ToString());
+		}
+
+		[Fact]
+		public void when_adding_behavior_then_can_override_mock ()
+		{
+			var foo = Mock.Of<IFoo>();
+			var proxy = (IProxy)foo;
+
+			proxy.InsertBehavior(0, (invocation, getNext) => {
+				if (invocation.MethodBase.Name == "Add")
+					return invocation.CreateValueReturn ((int)invocation.Arguments[0] + (int)invocation.Arguments[1], invocation.Arguments.ToArray());
+
+				return getNext () (invocation, getNext);
+			});
+
+			var result = foo.Add(1, 3);
+
+			Assert.Equal (4, result);
 		}
 	}
 
 	public interface IFoo
 	{
 		void Do ();
+
+		int Add (int x, int y);
 	}
 }
