@@ -12,10 +12,7 @@ namespace Moq.Proxy
 			Instance = new DefaultFactoryDiscoverer ();
 		}
 
-		public static IProxyFactory DiscoverFactory (Assembly assembly)
-		{
-			return Instance.DiscoverFactory (assembly);
-		}
+		public static IProxyFactory DiscoverFactory (Assembly assembly) => Instance.DiscoverFactory (assembly);
 
 		class DefaultFactoryDiscoverer : IProxyFactoryDiscoverer
 		{

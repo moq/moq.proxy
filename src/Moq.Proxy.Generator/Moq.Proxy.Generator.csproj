@@ -11,13 +11,40 @@
   </PropertyGroup>
   <Import Project="..\Moq.Proxy.Shared.props" />
   <ItemGroup>
+    <Compile Include="CsTextTransform.cs" />
+    <Compile Include="Templates\CsInterfaceProxy.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CsInterfaceProxy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\Templates.cs" />
+    <Compile Include="Templates\VbInterfaceProxy.cs">
+      <DependentUpon>VbInterfaceProxy.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TextTransformBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextTransform.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Moq.Proxy\Moq.Proxy.csproj">
       <Project>{8305a89c-4303-4c06-842b-5bfcdebfff25}</Project>
       <Name>Moq.Proxy</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\VbInterfaceProxy.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>VbInterfaceProxy.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\CsInterfaceProxy.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CsInterfaceProxy.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

@@ -19,6 +19,7 @@
     <Compile Include="IParameterCollection.cs" />
     <Compile Include="IProxyFactoryDiscoverer.cs" />
     <Compile Include="IProxyFactory.cs" />
+    <Compile Include="MethodInfoExtensions.cs" />
     <Compile Include="MethodInvocation.cs" />
     <Compile Include="MethodReturn.cs" />
     <Compile Include="ParameterCollection.cs" />

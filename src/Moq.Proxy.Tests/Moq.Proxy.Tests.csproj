@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Moq.Proxy.Tests</RootNamespace>
     <AssemblyName>Moq.Proxy.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <CopyNuGetImplementations>true</CopyNuGetImplementations>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,9 +36,11 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bin\Debug\Foo.cs" />
     <Compile Include="ManualProxyTest.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoslynTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Moq.Proxy.Tests.targets">
@@ -53,6 +56,10 @@
     <ProjectReference Include="..\Moq.Proxy.Castle\Moq.Proxy.Castle.csproj">
       <Project>{a4389281-e3db-4e94-a9af-d9240a824928}</Project>
       <Name>Moq.Proxy.Castle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moq.Proxy.Generator\Moq.Proxy.Generator.csproj">
+      <Project>{8370c610-75f0-4d0b-8e8a-ca5775de0685}</Project>
+      <Name>Moq.Proxy.Generator</Name>
     </ProjectReference>
     <ProjectReference Include="..\Moq.Proxy.LinFu\Moq.Proxy.LinFu.csproj">
       <Project>{b16e21df-158f-47a6-8bab-64cd0bd95e12}</Project>

@@ -1,0 +1,191 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" inherits="Moq.Proxy.Generator.CsTextTransform" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+namespace <#= TargetNamespace #>
+{
+<#
+		foreach (var ns in Usings) {
+#>
+	using <#= ns #>;
+<#
+		} 
+#>
+
+	public class <#= ClassName #> : <#= string.Join(", ", BaseTypes.Select(x => GetTypeName(x))) #>, IProxy
+	{
+<#
+		// We generate a delegate to reference these methods by signature, since 
+		// we can't use Action or Func for them.
+		foreach (var outRef in OutRefMethods) {
+#>
+		delegate <#= GetTypeName(outRef.ReturnType) #> <#= GetDelegate(outRef) #>(<#= GetParams(outRef) #>);
+<#
+		} 
+#>
+		BehaviorPipeline pipeline;
+		object target;
+<#
+		foreach (var iface in ImplementedInterfaces) {
+#>
+		<#= GetTypeName(iface) #> <#= GetFieldName(iface) #>;
+<#
+		} 
+#>
+
+		public <#= ClassName #> ()
+		{
+			pipeline = new BehaviorPipeline ();
+		}
+
+		public <#= ClassName #> (object target)
+			: this ()
+		{
+			this.target = target;
+<#
+		foreach (var iface in ImplementedInterfaces) {
+#>
+			<#= GetFieldName(iface) #> = target as <#= GetTypeName(iface) #>;
+<#
+		} 
+#>
+		}
+
+		IList<IProxyBehavior> IProxy.Behaviors => pipeline.Behaviors;
+
+<#
+		foreach (var property in InterfaceProperties) {
+			var targetVariable = GetFieldName(property.DeclaringType);
+#>
+
+		<#= GetTypeName(property.PropertyType) #> <#= GetTypeName(property.DeclaringType) #>.<#= GetPropertyName(property) #><#= GetIndexParams(property) #>
+		{ <# if (property.CanRead) { #>
+
+			get
+			{
+				var method = this.GetInterfaceMethod<<#= GetTypeName(property.DeclaringType) #>>((MethodInfo)MethodBase.GetCurrentMethod());
+				var invocation = new MethodInvocation(this, method, new object[] { <#= GetIndexVars(property) #> });
+				var returns = pipeline.Invoke(
+					invocation,
+					(input, next) => {
+						try {
+							var returnValue = <#= targetVariable #> != null ?
+								<#= targetVariable #><#= CallProperty(property) #> :
+								default(<#= GetTypeName(property.PropertyType) #>);
+
+							return input.CreateValueReturn(returnValue, new object[] { <#= GetIndexVars(property) #> });
+						} catch (Exception ex) {
+							return input.CreateExceptionReturn(ex);
+						}
+					}
+				);
+
+				var exception = returns.Exception;
+				if (exception != null)
+					throw exception;
+<# if (property.PropertyType.GetTypeInfo().IsValueType) { #>
+
+				return ((<#= GetTypeName(property.PropertyType) #>?)returns.ReturnValue).GetValueOrDefault ();
+<# } else { #>
+
+				return ((<#= GetTypeName(property.PropertyType) #>)returns.ReturnValue);
+<# } #>
+			} <# } if (property.CanWrite) { #>
+
+			set
+			{
+				var method = this.GetInterfaceMethod<<#= GetTypeName(property.DeclaringType) #>>((MethodInfo)MethodBase.GetCurrentMethod());
+				var invocation = new MethodInvocation(this, method, new object[] { <#= GetIndexVars(property) #> });
+				var returns = pipeline.Invoke(
+					invocation,
+					(input, next) => {
+						try {
+							if (<#= targetVariable #> != null)
+								<#= targetVariable #><#= CallProperty(property) #> = value;
+
+							return input.CreateValueReturn(null, new object [] { <#= GetIndexVars(property) #> });
+						} catch (Exception ex) {
+							return input.CreateExceptionReturn(ex);
+						}
+					}
+				);
+
+				var exception = returns.Exception;
+				if (exception != null)
+					throw exception;
+			} <# } #>
+
+		}
+<# } #>
+
+<#
+		foreach (var method in InterfaceMethods) {
+			var targetVariable = GetFieldName(method.DeclaringType);
+#>
+
+		<#= GetTypeName(method.ReturnType) #> <#= GetTypeName(method.DeclaringType) #>.<#= method.Name #>(<#= GetParams(method) #>)
+		{ <#
+			foreach (var parameter in method.GetParameters().Where(p => p.IsOut)) { #>
+
+			<#= parameter.Name #> = default(<#= GetTypeName(parameter.ParameterType) #>); <#
+			}
+#>
+
+			var method = this.GetInterfaceMethod<<#= GetDelegate(method) #>, <#= GetTypeName(method.DeclaringType) #>>(((<#= GetTypeName(method.DeclaringType) #>)this).<#= method.Name #>);
+			var invocation = new MethodInvocation(this, method, new object[] { <#= GetVars(method) #> });
+			var returns = pipeline.Invoke(
+				invocation,
+				(input, next) => {
+					try
+					{ <#
+			foreach (var parameter in method.GetParameters().Where(p => p.IsOut || p.ParameterType.IsByRef)) {
+				var parameterType = GetTypeName(parameter.ParameterType); #>
+
+						var local_<#= parameter.Name #> = <#= parameter.IsOut ? "default(" + parameterType + ")" : "(" + parameterType + ")invocation.Arguments[" + parameter.Position + "];" #>; <#
+			}
+
+			if (method.ReturnType == typeof(void)) { #>
+
+						if (<#= targetVariable #> != null)
+							<#= targetVariable #>.<#= method.Name #>(<#= GetArgs(method) #>);
+
+						return input.CreateValueReturn(null, new object[] { <#= GetVars(method) #> }); <#
+			} else { #>
+
+						var returnValue = <#= targetVariable #> != null ?
+							<#= targetVariable #>.<#= method.Name #>(<#= GetArgs(method) #>) :
+							default(<#= GetTypeName(method.ReturnType) #>);
+
+						return input.CreateValueReturn(returnValue, new object[] { <#= GetVars(method) #> }); <#
+			} #>
+
+					}
+					catch (Exception ex)
+					{
+						return input.CreateExceptionReturn(ex);
+					}
+				}
+			);
+
+			var exception = returns.Exception;
+			if (exception != null)
+				throw exception;
+<# if (method.ReturnType != typeof(void)) {
+		if (method.ReturnType.GetTypeInfo().IsValueType) { #>
+
+			return ((<#= GetTypeName(method.ReturnType) #>?)returns.ReturnValue).GetValueOrDefault ();
+<#		} else { #>
+
+			return ((<#= GetTypeName(method.ReturnType) #>)returns.ReturnValue);
+<#		}
+	}
+ #>
+		}
+<#
+		} 
+#>
+	}
+}
