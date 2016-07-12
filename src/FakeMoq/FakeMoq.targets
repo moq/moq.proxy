@@ -26,6 +26,7 @@ public static class Mock
 	/// &lt;summary>
 	/// Creates a mock for type &lt;see cref="T"/>.
 	/// &lt;/summary>
+	[ProxyGenerator]
 	public static T Of&lt;T> ()
 	{
 		var factory = ProxyFactoryDiscoverer.DiscoverFactory (typeof (Mock).GetTypeInfo ().Assembly)%3B

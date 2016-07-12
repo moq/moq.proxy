@@ -2,11 +2,25 @@
 using FakeMoq;
 using System.Reflection;
 using System.Linq;
+using Castle.DynamicProxy;
+using System.IO;
 
 namespace Moq.Proxy.Tests
 {
 	public class Misc
 	{
+		[Fact]
+		public void when_emitting_proxy_assembly_then_can_consume_it()
+		{
+			var builder = new PersistentProxyBuilder();
+			var generator = new ProxyGenerator(builder);
+
+			generator.CreateInterfaceProxyWithoutTarget(typeof(IFoo), Mock.Of<IInterceptor>());
+
+			var path = builder.SaveAssembly();
+			File.Copy(path, "CastleProxies.dll");
+		}
+
 		[Fact]
 		public void when_creating_proxy_then_succeeds ()
 		{
@@ -35,12 +49,12 @@ namespace Moq.Proxy.Tests
 
 			Assert.Equal (4, result);
 		}
-	}
 
-	public interface IFoo
-	{
-		void Do ();
+		public interface IFoo
+		{
+			void Do();
 
-		int Add (int x, int y);
+			int Add(int x, int y);
+		}
 	}
 }

@@ -31,16 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Engine" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bin\Debug\Foo.cs" />
     <Compile Include="ManualProxyTest.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoslynTests.cs" />
+    <Compile Include="ReflectionTests.cs" />
+    <Compile Include="GeneratorTests.cs" />
+    <Compile Include="TestOutputLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Moq.Proxy.Tests.targets">

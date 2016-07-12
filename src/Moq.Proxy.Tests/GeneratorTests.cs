@@ -1,63 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Xunit.Abstractions;
 using System.Reflection;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Moq.Proxy.Generator;
-using System.Globalization;
 using Moq.Proxy.Generator.Templates;
 using System.IO;
 using System.Collections;
 
 namespace Moq.Proxy.Tests
 {
-	public class RoslynTests
+	public class GeneratorTests
 	{
 		ITestOutputHelper output;
 
-		public RoslynTests (ITestOutputHelper output)
+		public GeneratorTests (ITestOutputHelper output)
 		{
 			this.output = output;
-		}
-
-		[Fact]
-		public void when_creating_method_then_succeeds ()
-		{
-			var generator = new CsInterfaceProxy(
-				"Foo", 
-				"BarProxy",
-				typeof(object).GetTypeInfo(),
-				new [] { typeof(ICalculator).GetTypeInfo() });
-
-			var source = generator.TransformText();
-			File.WriteAllText ("Foo.cs", source);
-			
-			var syntax = CSharpSyntaxTree.ParseText(source, path: Path.Combine(Directory.GetCurrentDirectory(), "Foo.cs"));
-			var compilation = CSharpCompilation.Create ("Foo",
-				new [] { syntax },
-				AppDomain.CurrentDomain.GetAssemblies().Select(x => MetadataReference.CreateFromFile(x.ManifestModule.FullyQualifiedName)), 
-				new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
-
-			var result = compilation.Emit("Foo.dll");
-			if (!result.Success)
-				output.WriteLine (string.Join (Environment.NewLine, result.Diagnostics.Select (d => d.ToString ())));
-
-			Assert.True (result.Success);
-			//var syntax = SyntaxFactory.MethodDeclaration (
-			//	SyntaxFactory.
-			//);
-
-			//var semantic = compilation.GetSemanticModel(syntax, true);
-			
-			//output.WriteLine (new string ('-', 50));
-			//output.WriteLine (syntax.ToString ());
-			//output.WriteLine (new string ('-', 50));
 		}
 
 		[Fact]
