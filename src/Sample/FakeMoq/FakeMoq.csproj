@@ -39,10 +39,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Moq.Proxy.Static\Moq.Proxy.Static.csproj">
-      <Project>{8370c610-75f0-4d0b-8e8a-ca5775de0685}</Project>
-      <Name>Moq.Proxy.Static</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Moq.Proxy\Moq.Proxy.csproj">
       <Project>{8305a89c-4303-4c06-842b-5bfcdebfff25}</Project>
       <Name>Moq.Proxy</Name>
