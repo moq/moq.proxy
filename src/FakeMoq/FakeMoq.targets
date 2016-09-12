@@ -1,44 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup Condition=" '$(Language)' == 'C#' ">
-		<FakeMoqFile>$(IntermediateOutputPath)FakeMoq.g$(DefaultLanguageSourceExtension)</FakeMoqFile>
 
-		<CoreCompileDependsOn>
-			GenerateFakeMoqFile;
-			$(CoreCompileDependsOn)
-		</CoreCompileDependsOn>
-	</PropertyGroup>
-
+	<!-- Include the mock factory entry point in the test project itself -->
 	<ItemGroup Condition=" '$(Language)' == 'C#' ">
-		<Compile Include="$(FakeMoqFile)" />
+		<Compile Include="$(MSBuildThisFileDirectory)Moq.g.cs" />
 	</ItemGroup>
-	
-	<Target Name="GenerateFakeMoqFile" Inputs="$(MSBuildProjectFullPath)" Outputs="$(FakeMoqFile)">
-		<MakeDir Directories="$(IntermediateOutputPath)" Condition=" !Exists('$(IntermediateOutputPath)') " />
-		<WriteLinesToFile Lines='using System.Reflection%3B
-using Moq.Proxy%3B
-
-/// &lt;summary>
-/// Entry point for creating mocks.
-/// &lt;/summary>
-public static class Mock
-{
-	/// &lt;summary>
-	/// Creates a mock for type &lt;see cref="T"/>.
-	/// &lt;/summary>
-	[ProxyGenerator]
-	public static T Of&lt;T> ()
-	{
-		var factory = ProxyFactoryDiscoverer.DiscoverFactory (typeof (Mock).GetTypeInfo ().Assembly)%3B
-
-		return FakeMoq.Mock.Of&lt;T> (factory)%3B
-	}
-}' 
-						  Overwrite='true' 
-						  File='$(FakeMoqFile)' />
-		<ItemGroup>
-			<FileWrites Include="$(FakeMoqFile)" />
-		</ItemGroup>
-	</Target>
 
 </Project>
