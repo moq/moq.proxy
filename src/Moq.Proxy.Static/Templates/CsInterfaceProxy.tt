@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" inherits="Moq.Proxy.Generator.CsTextTransform" #>
+﻿<#@ template debug="false" hostspecific="false" language="C#" inherits="Moq.Proxy.CsTextTransform" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Globalization" #>
 <#@ import namespace="System.Linq" #>

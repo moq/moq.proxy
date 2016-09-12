@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Moq.Proxy.Generator.Templates
+namespace Moq.Proxy.Templates
 {
     using System.Globalization;
     using System.Linq;
@@ -22,7 +22,7 @@ namespace Moq.Proxy.Generator.Templates
     
     #line 1 "C:\Code\Personal\moq.proxy\src\Moq.Proxy.Generator\Templates\CsInterfaceProxy.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public partial class CsInterfaceProxy : Moq.Proxy.Generator.CsTextTransform
+    public partial class CsInterfaceProxy : Moq.Proxy.CsTextTransform
     {
 #line hidden
         /// <summary>

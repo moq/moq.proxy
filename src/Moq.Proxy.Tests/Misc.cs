@@ -10,18 +10,6 @@ namespace Moq.Proxy.Tests
 	public class Misc
 	{
 		[Fact]
-		public void when_emitting_proxy_assembly_then_can_consume_it()
-		{
-			var builder = new PersistentProxyBuilder();
-			var generator = new ProxyGenerator(builder);
-
-			generator.CreateInterfaceProxyWithoutTarget(typeof(IFoo), Mock.Of<IInterceptor>());
-
-			var path = builder.SaveAssembly();
-			File.Copy(path, "CastleProxies.dll");
-		}
-
-		[Fact]
 		public void when_creating_proxy_then_succeeds ()
 		{
 			var proxy = Mock.Of<IFoo>();

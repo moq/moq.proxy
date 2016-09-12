@@ -1,0 +1,14 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "GitInfo": "1.0.56-pre",
+    "Microsoft.CodeAnalysis": "1.1.1",
+    "MSBuilder.Roslyn": "0.2.4"
+  },
+  "frameworks": {
+    "net45": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

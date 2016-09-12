@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Xunit.Abstractions;
 using System.Reflection;
-using Moq.Proxy.Generator.Templates;
+using Moq.Proxy.Templates;
 using System.IO;
 using System.Collections;
 
@@ -36,7 +36,9 @@ namespace Moq.Proxy.Tests
 			var syntax = CSharpSyntaxTree.ParseText(source, path: Path.Combine(Directory.GetCurrentDirectory(), "Foo.cs"));
 			var compilation = CSharpCompilation.Create ("Foo",
 				new [] { syntax },
-				AppDomain.CurrentDomain.GetAssemblies().Select(x => MetadataReference.CreateFromFile(x.ManifestModule.FullyQualifiedName)),
+				AppDomain.CurrentDomain.GetAssemblies()
+					.Where(x => File.Exists(x.ManifestModule.FullyQualifiedName))
+					.Select(x => MetadataReference.CreateFromFile(x.ManifestModule.FullyQualifiedName)),
 				new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
 			var result = compilation.Emit("Foo.dll");

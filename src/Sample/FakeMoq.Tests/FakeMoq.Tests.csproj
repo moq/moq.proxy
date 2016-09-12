@@ -53,15 +53,15 @@
       <Project>{75857261-551b-4fe1-b690-eb628b66f3ef}</Project>
       <Name>FakeMoq</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Moq.Proxy.Castle\Moq.Proxy.Castle.csproj">
+    <ProjectReference Include="..\..\Moq.Proxy.Castle\Moq.Proxy.Castle.csproj">
       <Project>{a4389281-e3db-4e94-a9af-d9240a824928}</Project>
       <Name>Moq.Proxy.Castle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Moq.Proxy.Generator\Moq.Proxy.Generator.csproj">
+    <ProjectReference Include="..\..\Moq.Proxy.Static\Moq.Proxy.Static.csproj">
       <Project>{8370c610-75f0-4d0b-8e8a-ca5775de0685}</Project>
-      <Name>Moq.Proxy.Generator</Name>
+      <Name>Moq.Proxy.Static</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Moq.Proxy\Moq.Proxy.csproj">
+    <ProjectReference Include="..\..\Moq.Proxy\Moq.Proxy.csproj">
       <Project>{8305a89c-4303-4c06-842b-5bfcdebfff25}</Project>
       <Name>Moq.Proxy</Name>
     </ProjectReference>

@@ -11,7 +11,6 @@
     <AssemblyName>Moq.Proxy.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <CopyNuGetImplementations>true</CopyNuGetImplementations>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +53,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FakeMoq\FakeMoq.csproj">
+    <ProjectReference Include="..\Sample\FakeMoq\FakeMoq.csproj">
       <Project>{75857261-551b-4fe1-b690-eb628b66f3ef}</Project>
       <Name>FakeMoq</Name>
     </ProjectReference>
@@ -62,9 +61,9 @@
       <Project>{a4389281-e3db-4e94-a9af-d9240a824928}</Project>
       <Name>Moq.Proxy.Castle</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Moq.Proxy.Generator\Moq.Proxy.Generator.csproj">
+    <ProjectReference Include="..\Moq.Proxy.Static\Moq.Proxy.Static.csproj">
       <Project>{8370c610-75f0-4d0b-8e8a-ca5775de0685}</Project>
-      <Name>Moq.Proxy.Generator</Name>
+      <Name>Moq.Proxy.Static</Name>
     </ProjectReference>
     <ProjectReference Include="..\Moq.Proxy.LinFu\Moq.Proxy.LinFu.csproj">
       <Project>{b16e21df-158f-47a6-8bab-64cd0bd95e12}</Project>
@@ -77,5 +76,5 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="Moq.Proxy.Tests.targets" />
-  <Import Project="..\FakeMoq\FakeMoq.targets" />
+  <Import Project="..\Sample\FakeMoq\FakeMoq.targets" />
 </Project>

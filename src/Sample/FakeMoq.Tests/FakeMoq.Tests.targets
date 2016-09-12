@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- Last import causes that factory to be the chosen one. 
+		 This would automatically be done by the nuget package 
+		 targets for each proxy -->
+	<!--
+	<Import Project="..\..\Moq.Proxy.LinFu\Moq.Proxy.LinFu.targets" />
+	-->
+	<Import Project="..\..\Moq.Proxy.Castle\Moq.Proxy.Castle.targets" />
+</Project>

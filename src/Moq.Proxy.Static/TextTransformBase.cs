@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Moq.Proxy.Generator
+namespace Moq.Proxy
 {
 	public abstract class TextTransformBase
 	{

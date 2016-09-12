@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace Moq.Proxy.Generator
+namespace Moq.Proxy
 {
 	public abstract class TextTransform : TextTransformBase
 	{

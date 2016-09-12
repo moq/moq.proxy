@@ -22,11 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.Tests", "Moq.Prox
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.LinFu", "Moq.Proxy.LinFu\Moq.Proxy.LinFu.csproj", "{B16E21DF-158F-47A6-8BAB-64CD0BD95E12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeMoq", "FakeMoq\FakeMoq.csproj", "{75857261-551B-4FE1-B690-EB628B66F3EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeMoq", "Sample\FakeMoq\FakeMoq.csproj", "{75857261-551B-4FE1-B690-EB628B66F3EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.Generator", "Moq.Proxy.Generator\Moq.Proxy.Generator.csproj", "{8370C610-75F0-4D0B-8E8A-CA5775DE0685}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moq.Proxy.Static", "Moq.Proxy.Static\Moq.Proxy.Static.csproj", "{8370C610-75F0-4D0B-8E8A-CA5775DE0685}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeMoq.Tests", "FakeMoq.Tests\FakeMoq.Tests.csproj", "{F990B687-E8E4-41CA-93C0-14DF9FF72F90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeMoq.Tests", "Sample\FakeMoq.Tests\FakeMoq.Tests.csproj", "{F990B687-E8E4-41CA-93C0-14DF9FF72F90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

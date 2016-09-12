@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace Moq.Proxy.Generator.Templates
+namespace Moq.Proxy.Templates
 {
 	partial class CsInterfaceProxy
 	{
