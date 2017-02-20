@@ -1,15 +1,16 @@
 ﻿{
-    "supports": { },
-    "dependencies": {
-        "GitInfo": "1.0.56-pre",
-        "Castle.Core": "3.3.3",
-        "LinFu.DynamicProxy.OfficialRelease": "1.0.5",
-        "xunit": "2.1.0"
-    },
-    "frameworks": {
-        "net452": { }
-    },
-    "runtimes": {
-        "win": { }
-    }
+  "supports": {},
+  "dependencies": {
+    "Castle.Core": "3.3.3",
+    "GitInfo": "1.0.56-pre",
+    "LinFu.DynamicProxy.OfficialRelease": "1.0.5",
+    "xunit": "2.2.0",
+    "xunit.runner.visualstudio": "2.1.0"
+  },
+  "frameworks": {
+    "net452": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
 }

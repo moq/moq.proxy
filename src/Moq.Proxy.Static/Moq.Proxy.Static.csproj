@@ -5,7 +5,8 @@
     <ProjectGuid>{8370C610-75F0-4D0B-8E8A-CA5775DE0685}</ProjectGuid>
     <RootNamespace>Moq.Proxy</RootNamespace>
     <AssemblyName>Moq.Proxy.Static</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="..\Moq.Proxy.Shared.props" />
   <ItemGroup>

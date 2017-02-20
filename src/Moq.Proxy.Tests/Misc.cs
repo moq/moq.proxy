@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Linq;
 using Castle.DynamicProxy;
 using System.IO;
+using System;
 
 namespace Moq.Proxy.Tests
 {
@@ -19,7 +20,7 @@ namespace Moq.Proxy.Tests
 			// TODO: ToString doesn't currently work with LinFu, investigate why?
 			// System.Console.WriteLine (proxy.ToString());
 		}
-
+		
 		[Fact]
 		public void when_adding_behavior_then_can_override_mock ()
 		{

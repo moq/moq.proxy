@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="All" InitialTargets="Setup" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="corebuild\corebuild.props" />
+
+	<ItemGroup>
+		<PackageReference Include="GitInfo" Version="*" />
+		<PackageReference Include="xunit.runner.console" Version="2.1.0" />
+		<!-- Latest v2.2.0 reports being compatible with net452 -->
+		<!--<PackageReference Include="xunit.runner.msbuild" Version="*" />-->
+	</ItemGroup>
+
+	<ItemGroup>
+		<Solution Include="src\*.sln"/>
+		<TestProject Include="src\**\*Tests.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+		<Out Condition=" '$(Out)' == '' ">out</Out>
+		<BuildProperties>WarningLevel=0;RunCodeAnalysis=false;Configuration=$(Configuration);Out=$(Out)</BuildProperties>
+	</PropertyGroup>
+
+	<Target Name="All" DependsOnTargets="Build;Test" />
+
+	<Target Name="Build">
+		<MSBuild Projects="@(Solution)" Targets="Build" Properties="$(BuildProperties)" />
+	</Target>
+
+	<Target Name="Clean">
+		<MSBuild Projects="@(Solution)" Targets="Clean" Properties="$(BuildProperties)" />
+		<Exec Command="rmdir $(Out) /S /Q" ContinueOnError="true" />
+	</Target>
+
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+
+	<Target Name="Test" DependsOnTargets="Build">
+		<MSBuild Projects="@(TestProject)" BuildInParallel="true" Targets="GetTargetPath" Properties="$(BuildProperties)">
+			<Output TaskParameter="TargetOutputs" ItemName="_TestAssembly" />
+		</MSBuild>
+
+		<ItemGroup>
+			<TestAssembly Include="@(_TestAssembly)" Condition="Exists('%(FullPath)')" />
+		</ItemGroup>
+
+		<PropertyGroup>
+			<XunitConsole>"$(NuGetPackageRoot)\xunit.runner.console\2.1.0\tools\xunit.console.exe"</XunitConsole>
+			<XunitOptions>$(XunitOptions) -html $(Out)\test.html -xml $(Out)\test.xml -parallel all -noshadow</XunitOptions>
+		</PropertyGroup>
+
+		<Exec Command="$(XunitConsole) @(TestAssembly, ' ') $(XunitOptions)" ConsoleToMSBuild="true" />
+
+		<!-- Version 2.1.0 restores fine, but it's apparently incompatible with MSBuild 15.0 :( -->
+		<!-- <xunit Assemblies="@(TestAssembly)" /> -->
+	</Target>
+
+	<Target Name="SolutionRestore" AfterTargets="Restore">
+		<MSBuild Projects="@(Solution)" Targets="Restore" />
+	</Target>
+
+	<Target Name="GitVersion">
+		<PropertyGroup>
+			<GitSemVerMajor>1</GitSemVerMajor>
+			<GitSemVerMinor>0</GitSemVerMinor>
+			<GitSemVerPatch>0</GitSemVerPatch>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="Setup" DependsOnTargets="GitVersion" Returns="$(Version)">
+		<PropertyGroup>
+			<Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</Version>
+		</PropertyGroup>
+	</Target>
+
+	<Import Project="corebuild\corebuild.targets" />
+</Project>

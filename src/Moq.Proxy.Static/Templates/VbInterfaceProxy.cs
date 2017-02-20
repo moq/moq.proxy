@@ -18,7 +18,7 @@ namespace Moq.Proxy.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Code\Personal\moq.proxy\src\Moq.Proxy.Generator\Templates\VbInterfaceProxy.tt"
+    #line 1 "C:\Code\Personal\moq.proxy\src\Moq.Proxy.Static\Templates\VbInterfaceProxy.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
     public partial class VbInterfaceProxy : Moq.Proxy.TextTransform
     {
