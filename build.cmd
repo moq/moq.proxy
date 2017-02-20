@@ -25,10 +25,12 @@ MSBuildAdditionalArguments="%1 %MSBuildAdditionalArguments"%&&shift&& goto :Pars
 
 if not exist "%VS150COMNTOOLS%" (
   echo To build this repository, this script needs to be run from a Visual Studio 2017 developer command prompt.
+  if NOT "%VS150COMNTOOLS%" == "" echo Specified Visual Studio tools location "%VS150COMNTOOLS%" was not found.
   echo.
   echo If Visual Studio is not installed, visit this page to download:
   echo.
   echo https://www.visualstudio.com/vs/
+  echo.
   exit /b 1
 )
 
