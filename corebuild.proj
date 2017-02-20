@@ -65,6 +65,10 @@
 		</PropertyGroup>
 	</Target>
 
+	<Target Name="GetVsInstallRoot" Returns="$(VsInstallRoot)">
+		<Message Importance="high" Text="$(VsInstallRoot)" />
+	</Target>
+
 	<Target Name="Setup" DependsOnTargets="GitVersion" Returns="$(Version)">
 		<PropertyGroup>
 			<Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</Version>

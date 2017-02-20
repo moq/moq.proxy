@@ -6,7 +6,6 @@ set Root=%~dp0
 set BuildConfiguration=Debug
 set MSBuildTarget=Build
 set NodeReuse=true
-set DeveloperCommandPrompt=%VS150COMNTOOLS%\VsDevCmd.bat
 set MultiProcessor=/m
 set RunTests=true
 
@@ -23,9 +22,13 @@ if /I "%1" == "/no-multi-proc" set MultiProcessor=&&shift&& goto :ParseArguments
 MSBuildAdditionalArguments="%1 %MSBuildAdditionalArguments"%&&shift&& goto :ParseArguments
 :DoneParsing
 
-if not exist "%VS150COMNTOOLS%" (
-  echo To build this repository, this script needs to be run from a Visual Studio 2017 developer command prompt.
-  if NOT "%VS150COMNTOOLS%" == "" echo Specified Visual Studio tools location "%VS150COMNTOOLS%" was not found.
+:: Detect if MSBuild is in the path
+for /f "delims=" %%i in ('where msbuild') do set "MSBuildPath=%%i" & goto :MSBuildPathDone
+:MSBuildPathDone
+
+if not exist "%MSBuildPath%" (
+  call :PrintColor Red "To build this repository, MSBuild.exe must be in the PATH."
+  echo MSBuild is included with Visual Studio 2017 or later.
   echo.
   echo If Visual Studio is not installed, visit this page to download:
   echo.
@@ -34,8 +37,39 @@ if not exist "%VS150COMNTOOLS%" (
   exit /b 1
 )
 
+:: Detect MSBuild version >= 15
+for /f "delims=" %%i in ('msbuild -nologo -version') do set MSBuildFullVersion=%%i
+for /f "delims=. tokens=1" %%a in ("%MSBuildFullVersion%") do (
+  set MSBuildMajorVersion=%%a
+)
+
+if %MSBuildMajorVersion% LSS 15 (
+  call :PrintColor Red "To build this repository, the MSBuild.exe in the PATH needs to be 15.0 or higher."
+  echo MSBuild 15.0 is included with Visual Studio 2017 or later.
+  echo.
+  echo If Visual Studio is not installed, visit this page to download:
+  echo.
+  echo https://www.visualstudio.com/vs/
+  echo.
+  echo Located MSBuild in the PATH was "%MSBuildPath%".
+  exit /b 1
+)
+
+:: Ensure developer command prompt variables are set
 if "%VisualStudioVersion%" == "" (
-  REM If MSBuild wasn't run from a developer command prompt, but the right VS150COMNTOOLS is set, run the bat.
+  for /f "delims=" %%i in ('msbuild -nologo /t:GetVsInstallRoot') do set "VsInstallRoot=%%i" & goto :VsInstallRootDone
+:VsInstallRootDone
+  for /f "tokens=* delims= " %%i in ("%VsInstallRoot%") do set "VsInstallRoot=%%i"
+  set "DeveloperCommandPrompt=%VsInstallRoot%\Common7\Tools\VsDevCmd.bat"
+  if not exist "%DeveloperCommandPrompt%" (
+    call :PrintColor Red "Failed to locate 'Common7\Tools\VsDevCmd.bat' under the reported Visual Studio installation root '%VsInstallRoot%'."
+    echo.
+    echo If Visual Studio is not installed, visit this page to download:
+    echo.
+    echo https://www.visualstudio.com/vs/
+    echo.
+    exit /b 1  
+  )
   call "%DeveloperCommandPrompt%" || goto :BuildFailed
 )
 

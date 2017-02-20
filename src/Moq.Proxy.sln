@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\appveyor.yml = ..\appveyor.yml
 		..\build.cmd = ..\build.cmd
 		..\build.proj = ..\build.proj
+		..\corebuild.proj = ..\corebuild.proj
 		..\GitInfo.txt = ..\GitInfo.txt
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		Moq.Proxy.Shared.props = Moq.Proxy.Shared.props
