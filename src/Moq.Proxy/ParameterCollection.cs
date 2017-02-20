@@ -10,19 +10,19 @@ namespace Moq.Proxy
 		List<ParameterInfo> infos = new List<ParameterInfo>();
 		List<object> values = new List<object>();
 
-		public ParameterCollection (object[] values, ParameterInfo[] infos)
+		public ParameterCollection(object[] values, ParameterInfo[] infos)
 		{
-			this.infos = infos.ToList ();
-			this.values = values.ToList ();
+			this.infos = infos.ToList();
+			this.values = values.ToList();
 		}
 
-		public ParameterCollection (IEnumerable<object> values, IEnumerable<ParameterInfo> infos)
+		public ParameterCollection(IEnumerable<object> values, IEnumerable<ParameterInfo> infos)
 		{
-			this.infos = infos.ToList ();
-			this.values = values.ToList ();
+			this.infos = infos.ToList();
+			this.values = values.ToList();
 		}
 
-		public object this[int index] 
+		public object this[int index]
 		{
 			get { return values[index]; }
 			set { values[index] = value; }
@@ -36,20 +36,22 @@ namespace Moq.Proxy
 
 		public int Count => infos.Count;
 
-		public bool Contains (string parameterName) => IndexOf (parameterName) != -1;
+		public bool Contains(string parameterName) => IndexOf(parameterName) != -1;
 
-		public IEnumerator<object> GetEnumerator () => values.GetEnumerator ();
+		public IEnumerator<object> GetEnumerator() => values.GetEnumerator();
 
-		public ParameterInfo GetInfo (string parameterName) => infos[IndexOf (parameterName)];
+		public ParameterInfo GetInfo(string parameterName) => infos[IndexOf(parameterName)];
 
-		public ParameterInfo GetInfo (int index) => infos[index];
+		public ParameterInfo GetInfo(int index) => infos[index];
 
-		public string GetName (int index) => infos[index].Name;
+		public string GetName(int index) => infos[index].Name;
 
-		public int IndexOf (string parameterName)
+		public int IndexOf(string parameterName)
 		{
-			for (int i = 0; i < infos.Count; ++i) {
-				if (infos[i].Name == parameterName) {
+			for (int i = 0; i < infos.Count; ++i)
+			{
+				if (infos[i].Name == parameterName)
+				{
 					return i;
 				}
 			}
@@ -57,6 +59,6 @@ namespace Moq.Proxy
 			return -1;
 		}
 
-		IEnumerator IEnumerable.GetEnumerator () => values.GetEnumerator ();
+		IEnumerator IEnumerable.GetEnumerator() => values.GetEnumerator();
 	}
 }

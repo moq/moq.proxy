@@ -9,7 +9,7 @@ namespace Moq.Proxy
 	/// </summary>
 	public class MethodReturn : IMethodReturn
 	{
-		public MethodReturn (IMethodInvocation invocation, object returnValue, object[] allArguments)
+		public MethodReturn(IMethodInvocation invocation, object returnValue, object[] allArguments)
 		{
 			Context = invocation.Context;
 			ReturnValue = returnValue;
@@ -18,21 +18,23 @@ namespace Moq.Proxy
 			var outputInfos = new List<ParameterInfo>();
 			var allInfos = invocation.MethodBase.GetParameters();
 
-			for (int i = 0; i < allInfos.Length; i++) {
+			for (int i = 0; i < allInfos.Length; i++)
+			{
 				var info = allInfos[i];
-				if (info.ParameterType.IsByRef) {
-					outputArgs.Add (allArguments[i]);
-					outputInfos.Add (info);
+				if (info.ParameterType.IsByRef)
+				{
+					outputArgs.Add(allArguments[i]);
+					outputInfos.Add(info);
 				}
 			}
 
-			Outputs = new ParameterCollection (outputArgs, outputInfos);
+			Outputs = new ParameterCollection(outputArgs, outputInfos);
 		}
 
-		public MethodReturn (IMethodInvocation invocation, Exception exception)
+		public MethodReturn(IMethodInvocation invocation, Exception exception)
 		{
 			Context = invocation.Context;
-			Outputs = new ParameterCollection (new object[0], new ParameterInfo[0]);
+			Outputs = new ParameterCollection(new object[0], new ParameterInfo[0]);
 			Exception = exception;
 		}
 

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Moq.Proxy
+﻿namespace Moq.Proxy
 {
 	public interface IProxyBehavior
 	{
 		IMethodReturn Invoke(IMethodInvocation invocation, GetNextBehavior getNext);
 	}
 
-	public delegate InvokeBehavior GetNextBehavior ();
+	public delegate InvokeBehavior GetNextBehavior();
 
-	public delegate IMethodReturn InvokeBehavior (IMethodInvocation invocation, GetNextBehavior getNext);
+	public delegate IMethodReturn InvokeBehavior(IMethodInvocation invocation, GetNextBehavior getNext);
 }

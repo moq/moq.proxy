@@ -9,12 +9,12 @@ namespace Moq.Proxy
 	/// </summary>
 	public class MethodInvocation : IMethodInvocation
 	{
-		public MethodInvocation (object target, MethodBase method, params object[] arguments)
+		public MethodInvocation(object target, MethodBase method, params object[] arguments)
 		{
 			Target = target;
 			MethodBase = method;
-			Arguments = new ParameterCollection (arguments, method.GetParameters ());
-			Context = new Dictionary<string, object> ();
+			Arguments = new ParameterCollection(arguments, method.GetParameters());
+			Context = new Dictionary<string, object>();
 		}
 
 		public IParameterCollection Arguments { get; }
@@ -25,8 +25,8 @@ namespace Moq.Proxy
 
 		public object Target { get; }
 
-		public IMethodReturn CreateExceptionReturn (Exception exception) => new MethodReturn (this, exception);
+		public IMethodReturn CreateExceptionReturn(Exception exception) => new MethodReturn(this, exception);
 
-		public IMethodReturn CreateValueReturn (object returnValue, params object[] allArguments) => new MethodReturn (this, returnValue, allArguments);
+		public IMethodReturn CreateValueReturn(object returnValue, params object[] allArguments) => new MethodReturn(this, returnValue, allArguments);
 	}
 }

@@ -7,7 +7,7 @@ namespace Moq.Proxy
 	{
 		IDictionary<string, object> Context { get; }
 
-		Exception Exception { get; set; }
+		Exception Exception { get; }
 
 		IParameterCollection Outputs { get; }
 

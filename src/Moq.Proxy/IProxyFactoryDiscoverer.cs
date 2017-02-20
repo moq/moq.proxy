@@ -4,6 +4,6 @@ namespace Moq.Proxy
 {
 	public interface IProxyFactoryDiscoverer
 	{
-		IProxyFactory DiscoverFactory (Assembly assembly);
+		IProxyFactory DiscoverFactory(Assembly assembly);
 	}
 }

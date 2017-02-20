@@ -9,20 +9,20 @@ namespace Moq.Proxy
 
 		static ProxyFactoryDiscoverer()
 		{
-			Instance = new DefaultFactoryDiscoverer ();
+			Instance = new DefaultFactoryDiscoverer();
 		}
 
-		public static IProxyFactory DiscoverFactory (Assembly assembly) => Instance.DiscoverFactory (assembly);
+		public static IProxyFactory DiscoverFactory(Assembly assembly) => Instance.DiscoverFactory(assembly);
 
 		class DefaultFactoryDiscoverer : IProxyFactoryDiscoverer
 		{
-			public IProxyFactory DiscoverFactory (Assembly assembly)
+			public IProxyFactory DiscoverFactory(Assembly assembly)
 			{
 				var factoryType = assembly.GetCustomAttribute<ProxyFactoryAttribute>()?.FactoryType;
 				if (factoryType == null)
-					throw new NotSupportedException ();
+					throw new NotSupportedException();
 
-				return (IProxyFactory)Activator.CreateInstance (factoryType);
+				return (IProxyFactory)Activator.CreateInstance(factoryType);
 			}
 		}
 	}

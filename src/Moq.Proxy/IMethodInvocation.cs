@@ -14,8 +14,8 @@ namespace Moq.Proxy
 
 		object Target { get; }
 
-		IMethodReturn CreateValueReturn (object returnValue, params object[] allArguments);
+		IMethodReturn CreateValueReturn(object returnValue, params object[] allArguments);
 
-		IMethodReturn CreateExceptionReturn (Exception exception);
+		IMethodReturn CreateExceptionReturn(Exception exception);
 	}
 }
