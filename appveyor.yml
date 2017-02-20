@@ -1,5 +1,8 @@
 os: Visual Studio 2017 RC
 
+environment:
+  VS150COMNTOOLS: C:\Program Files\Microsoft Visual Studio\2017\Community\Common7\Tools\
+
 init:
   - git config --global core.autocrlf input
 
